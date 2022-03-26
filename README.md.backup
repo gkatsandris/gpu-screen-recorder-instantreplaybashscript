@@ -22,4 +22,4 @@ Run the script to start the video buffer. Input a space character to save the co
 	Output is placed in "~/Videos/gpu-screen-recorder".
 	
 `recordbuffer "some dir name"`:
-	Same but output is placed in "~/Videos/gpu-screen-recorder/some dir name"
+	Same but output is placed in "$HOME/Videos/gpu-screen-recorder/some dir name"
