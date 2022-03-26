@@ -32,7 +32,7 @@ echo pulseaudio sound source: $sound_source
 echo recording buffer size in seconds: $buffer_size_secs
 echo output directory: $outdir
 
-gpu-screen-recorder -w screen -c mp4 -f $fps -q $quality -a $sound_source -o "$outdir" -r $buffer_size_secs 2>&1 | grep -v fps  &
+gpu-screen-recorder -w screen -c mp4 -f $fps -q $quality -a $sound_source -o "$outdir" -r $buffer_size_secs 2>&1 | egrep -v "fps|$outdir"  &
 
 echo "Press space to save replay or ctrl-C to stop..."
 echo
