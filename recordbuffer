@@ -1,0 +1,45 @@
+#!/bin/bash
+set -euo pipefail
+
+#user parameters
+fps=60
+quality=ultra
+sound_source="$(pactl info | grep 'Default Sink' | awk '{print $3;}').monitor"
+buffer_size_secs=300
+outrootdir="$HOME/Videos/gpu-screen-recorder"
+
+
+function prereqcheck() {
+  command -v $1 >/dev/null 2>&1 || { echo "command $1 not available" >&2; exit 1; }
+}
+
+prereqcheck gpu-screen-recorder
+
+if [ ! -z "${1-}" ]
+then
+  outdir="$outrootdir/$1"
+else
+  echo "No output directory name specified as first argument, using $outrootdir"
+  outdir="$outrootdir"
+fi
+
+mkdir -p "$outdir"
+
+echo
+echo recorded fps: $fps
+echo gpu-screen-recorder quality level: $quality
+echo pulseaudio sound source: $sound_source
+echo recording buffer size in seconds: $buffer_size_secs
+echo output directory: $outdir
+
+gpu-screen-recorder -w screen -c mp4 -f $fps -q $quality -a $sound_source -o "$outdir" -r $buffer_size_secs 2>&1 | grep -v fps  &
+
+echo "Press space to save replay or ctrl-C to stop..."
+echo
+
+while true
+do
+  read -d ' ' -rs key
+  killall -SIGUSR1 gpu-screen-recorder
+  echo "Saved last $buffer_size_secs recorded seconds to $outdir"
+done
