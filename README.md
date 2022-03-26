@@ -20,6 +20,10 @@ Run the script to start the video buffer. Input a space character to save the co
 
 `recordbuffer`:
 	Output is placed in "~/Videos/gpu-screen-recorder".
-	
+
 `recordbuffer "some dir name"`:
 	Same but output is placed in "~/Videos/gpu-screen-recorder/some dir name"
+
+## TODO
+* Audio is bad for some reason
+* Automatically cut clips that have overlapping content to save space
